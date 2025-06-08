@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Удалить клиента{% endblock %}
+{% block content %}
+<h2>Удаление клиента</h2>
+<p class="mb-3">Вы точно хотите удалить <strong>{{ object.full_name }}</strong>?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">🗑️ Удалить</button>
+  <a href="{% url 'clients:client_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}
