@@ -15,3 +15,15 @@ class Client(models.Model):
 
     def __str__(self):
         return f"{self.full_name} <{self.email}>"
+
+    class Meta:
+        ordering = ['full_name']
+        verbose_name = 'клиент'
+        verbose_name_plural = 'клиенты'
+        constraints = [
+            # Обеспечиваем уникальность email в рамках одного владельца
+            models.UniqueConstraint(
+                fields=['owner', 'email'],
+                name='unique_owner_client_email'
+            )
+        ]

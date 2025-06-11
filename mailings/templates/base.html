@@ -9,19 +9,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'home' %}">Сервис рассылок</a>
-
     <div class="d-flex align-items-center ms-auto">
-      {% if user.is_authenticated %}
-        <ul class="navbar-nav me-3">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'mailings:mailing_attempt_list' %}">📊 Попытки рассылок</a>
-          </li>
-        </ul>
+    {% if user.is_authenticated %}
+      <ul class="navbar-nav me-3">
+       <li class="nav-item">
+         <a class="nav-link" href="{% url 'mailings:mailing_attempt_list' %}">📊 Попытки рассылок</a>
+       </li>
+      </ul>
         <a href="{% url 'users:profile' %}" class="btn btn-outline-info btn-sm me-2">👤 Профиль</a>
         <span class="me-3">👋 Привет, {{ user.username|default:user.email }}</span>
         <form action="{% url 'users:logout' %}" method="post" style="display:inline;">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-outline-danger btn-sm">Выйти</button>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger btn-sm">Выйти</button>
         </form>
       {% else %}
         <a href="{% url 'users:login' %}" class="btn btn-outline-primary btn-sm">Войти</a>
