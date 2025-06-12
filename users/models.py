@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomUser(AbstractUser):
@@ -26,3 +27,24 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+    class Meta(AbstractUser.Meta):
+        verbose_name = _("custom user")
+        verbose_name_plural = _("custom users")
+        ordering = ["-date_joined"]
+        db_table = "custom_users"
+
+        # Для совместимости с переопределёнными полями
+        default_related_name = "custom_users"
+
+        # Дополнительные индексы для оптимизации запросов
+        indexes = [
+            models.Index(fields=["email"], name="email_idx"),
+            models.Index(fields=["last_name", "first_name"], name="name_idx"),
+        ]
+
+        # Ограничения уникальности
+        constraints = [
+            models.UniqueConstraint(fields=["email"], name="unique_user_email"),
+            models.UniqueConstraint(fields=["username"], name="unique_username"),
+        ]
