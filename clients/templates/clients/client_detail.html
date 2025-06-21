@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Инфо о клиенте{% endblock %}
+{% block content %}
+<h2 class="mb-3">{{ object.full_name }}</h2>
+<p><strong>Email:</strong> {{ object.email }}</p>
+<p><strong>Комментарий:</strong> {{ object.comment }}</p>
+
+<div class="mt-4">
+  <a href="{% url 'clients:client_update' object.pk %}" class="btn btn-warning">✏️ Редактировать</a>
+  <a href="{% url 'clients:client_delete' object.pk %}" class="btn btn-danger">🗑️ Удалить</a>
+  <a href="{% url 'clients:client_list' %}" class="btn btn-secondary">← Назад</a>
+</div>
+{% endblock %}
